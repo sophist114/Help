@@ -25,3 +25,6 @@ Generate SSH key:
 ssh-keygen -t rsa -C "sophist114@gmail.com"
 Test:
 ssh -T git@github.com
+
+git download :
+http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.7-preview20111012.exe&can=2&q=

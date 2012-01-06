@@ -17,8 +17,8 @@ Next steps:
   git push -u origin master
       
 -----checkout--------
-git clone git@github.com:sophist114/Java.git
-git remote add upstream git://github.com/sophist114/Java.git
+git clone git@github.com:sophist114/PHP.git
+git remote add upstream git://github.com/sophist114/PHP.git
 git fetch upstream
 
 Generate SSH key:

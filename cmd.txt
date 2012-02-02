@@ -28,3 +28,96 @@ ssh -T git@github.com
 
 git download :
 http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.7-preview20111012.exe&can=2&q=
+
+
+
+
+
+svn server operation:
+SVN服务端安装配置
+2011-07-21 19:34
+
+1.安装
+# tar xzvf subversion-1.6.12.tar.gz
+# cd subversion-1.6.12
+# ./configure –prefix=/usr/local/svn –with-ssl
+如果出现：configure: error: no suitable apr found
+可以：下载subversion-deps-1.6.12.tar.gz并解压在同一目录下
+如果出现：We Require OpenSSL
+可以：安装openssl和openssl-devel
+# make && make install
+# mkdir /home/svnrepository
+# ./svnserve -d -r /home/svnrepository # 启动SVN服务
+# cd /usr/local/svn/bin
+# netstat -ntlp # 是否启动成功(开启了3690端口)
+# /sbin/iptables -A INPUT -i eth0 -p tcp –dport 3690 -j ACCEPT # 开放服务端口
+# killall svnserve # 停止服务
+添为linux的服务
+a.编辑服务脚本
+# vi /etc/init.d/svnserve
+#!/bin/bash
+#
+# SVN Server
+#
+# chkconfig: 3 85 15
+# description: SVN Server
+
+. /etc/rc.d/init.d/functions
+case “$1″ in
+start)
+/svnserve -d -r /home/svnrepository
+exit 0
+;;
+stop)
+killproc svnserve
+exit 0
+;;
+restart)
+$0 stop
+$0 start
+;;
+*)
+echo “Useage:$0 (start|stop|restart)”
+;;
+esac
+b.添加执行权限
+# chmod +x /etc/init.d/svnserve
+c.添加服务
+# chkconfig –add svnserve
+# chkconfig –level 3 svnserve on
+c.测试
+# service svnserve start
+# service svnserve restart
+# service svnserve stop
+
+2.配置
+# ./svnadmin create /home/svnrepository/5net # 创建仓库（项目）
+# svn import dir file:///home/svnrepository/5net # 导入到库
+如果出现：svn could not use external editor to fetch log message
+可以：# vi ~/.bash_profile
+加入：export SVN_EDITOR=”/bin/vi”
+a.修改配置
+# vi /home/svnrepository/5net/conf/svnserve.conf
+修改为：
+[general]
+anon-access = none
+auth-access = write
+password-db = /home/svnrepository/5net/conf/pwd
+authz-db = /home/svnrepository/5net/conf/authz
+realm = 5net
+b.添加允许访问SVN的用户
+# vi /home/svnrepository/5net/conf/passwd
+[users]
+sys = 123456
+hjg = 123456
+wll = 123456
+qlj = 123456
+phf = 123456
+c.设置SVN用户访问权限
+# vi /home/svnrepository/5net/conf/authz
+[groups]
+developers = sys,hjg,wll,qlj,phf
+[/]
+@developers = rw
+
+3.下载svn客户端进行测试http://tortoisesvn.tigris.org/

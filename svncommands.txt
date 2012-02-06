@@ -7,3 +7,18 @@ note: this is where the source code located: /usr/local/apache/htdocs/sm3_new/
 total 4
 drwxr-xr-x 7 root root 4096 Feb  6 17:22 sm3
 [root@yahoo151 project]# svn import /usr/local/apache/htdocs/sm3_new/ file:///sophist/project/sm3/ -m 'new sm3'
+
+a couple of things to be chnaged at conf/
+conf/svnserve.conf: 
+	anon-access =none
+	password-db = passwd
+conf/passwd:
+	[users]
+	# harry = harryssecret
+	# sally = sallyssecret
+	sophist = sophist
+	baggio=baggio
+	william=william
+	brank=brank
+
+Done now!

@@ -1,0 +1,50 @@
+sudo ./configure --prefix=/home/jun/sophist/apache/1 --enable-so --enable-ssl=static --with-ssl --enable-mods-shared=all
+
+sudo make install
+
+sudo ~/sophist/apache/1/bin/
+
+sudo /usr/local/apache/bin/apachectl stop
+
+cd ~/sophist/apache/1
+
+sudo ~/sophist/apache/1/bin/apachectl restart
+
+
+sudo openssl genrsa -out ca.key 2048
+
+
+sudo cp -r /data/ELCID.code/php-5.3.5/ext/openssl/tests/cert.crt /home/jun/sophist/apache/1/conf/server.crt
+sudo cp -r  /data/ELCID.code/php-5.3.5/ext/openssl/tests/private.key /home/jun/sophist/apache/1/conf/server.key
+
+
+sudo tail -f ~/sophist/apache/1/logs/error_log
+
+sudo vi ~/sophist/apache/1/conf/httpd.conf
+
+
+/data/ELCID.code/php-5.3.5/ext/openssl/tests/cert.crt
+/data/ELCID.code/php-5.3.5/ext/openssl/tests/private.key
+
+
+
+sudo ./configure --prefix=/usr/local/apache2 --enable-so --enable-ssl=static --with-ssl --enable-mods-shared=all
+
+ sudo scp -r /home/jun/update/elcid1.0_update_20120120/ jun@10.5.203.175:/home/jun/update/
+
+
+
+sudo cp -r /usr/local/apache/htdocs/elcid1.0/ /home/jun/backup/code/elcid1.0_backup_20120202/
+
+
+
+
+sudo scp -r /usr/local/apache/htdocs/elcid1.0/ jun@10.5.203.175:/home/jun/sophist/elcid02_20120203
+
+
+
+sudo cp -r /usr/local/apache/htdocs/elcid1.0/ /home/jun/backup/code/elcid1.0_backup_20120203/
+
+sudo cp -r /usr/local/apache/htdocs/elcid1.0/ /home/jun/backup/code/elcid1.0_backup_20120203/
+
+sudo cp -r /home/jun/sophist/elcid02_20120203/* /usr/local/apache/htdocs/elcid1.0/

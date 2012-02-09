@@ -1,0 +1,27 @@
+compile apache
+
+sudo make clean
+sudo ./configure --prefix=/usr/local/apache --enable-so --enable-ssl=static --with-ssl --enable-mods-shared=all
+sudo make install
+
+compile php
+
+sudo make clean
+sudo  ./configure  --prefix=/usr/local/php   --with-apxs2=/usr/local/apache/bin/apxs   --with-mysql=/usr/bin/mysql_config   --with-libxml-dir=/usr/share/gtk-doc/html/libxml2   --with-png-dir=/usr/include/xulrunner-sdk-1.9/png   --with-freetype-dir=/usr/include/freetype2/freetype   --enable-ftp   --enable-sockets   --enable-mbstring   --with-config-file-path=/usr/local/php   --with-libdir=lib64   --with-pgsql=/usr/local/pgsql/bin --with-curl=/usr/local/curl
+ 
+sudo make install
+
+restart apache
+sudo /usr/local/apache/bin/apachectl restart
+ps aux | grep httpd
+sudo /usr/local/apache2/bin/httpd -k stop
+
+
+sudo scp -r /usr/local/src/ jun@10.5.203.175:/home/jun/sophist/
+password:changeme
+
+
+sudo mv /usr/local/php /usr/local/php_old
+sudo mv /usr/local/apache/ /usr/local/apache_old
+sudo cp -r /home/jun/sophist/curl-7.17.1/ ./
+sudo ./configure --prefix=/usr/local/curl

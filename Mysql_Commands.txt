@@ -1,0 +1,5 @@
+mysql in windows to import data from .sql file or whatever file:
+
+mysql -u root -p (prompts for password) 
+use db; 
+source db.sql 

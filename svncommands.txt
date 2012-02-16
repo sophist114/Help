@@ -22,3 +22,7 @@ conf/passwd:
 	brank=brank
 
 Done now!
+
+svn check out with username and password : 
+
+svn co svn://172.18.65.197/sophist/project/qa/ --username sophist --password sophist

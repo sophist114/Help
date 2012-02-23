@@ -1,3 +1,46 @@
 pg_dump dow_tet -t dbprof.cluster > test.sql -U gpadmin
 
 dow_test# copy dbprof.cpuid_2_id to '/data/sophist/test.sql';
+
+How to Install and Configure Postgresql in Linux:
+
+Ubuntu : 
+
+sudo apt-get  install postgresql-8.4 postgresql-client-8.4 postgresql-contrib-8.4
+sudo apt-get install pgadmin3
+or You can compile from source in other linux versions.
+
+/*Don't necessarily to be a user named postgres, but should be the same by which you start the Postgres instance*/
+sudo su postgres -c psql template1
+template1=# ALTER USER postgres WITH PASSWORD 'test';
+template1=# \q 
+
+Next we need change the password of User postgres to the same as DB password by the following: 
+ sudo passwd postgres
+ password should be 'test' same as DB password
+
+
+Configurate postgresql.conf 
+uncomment
+ #listen_addresses = ¡®localhost¡¯ 
+to
+ listen_addresses = '*'
+uncomment 
+#password_encryption = on 
+to
+password_encryption = on
+save and exit vi 
+
+ 
+
+configurate outside acess IP
+vi /etc/postgresql/8.4/main/pg_hba.conf
+Add the following at the end:
+host all all 0.0.0.0/0 md5  
+
+e.g. host all all 192.168.0.0/24 md5
+
+ 
+
+Restart postgres, Done! 
+

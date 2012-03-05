@@ -1,0 +1,4 @@
+On ubuntu
+vi /etc/default/grub 
+change GRUB_DEFAULT=1 then boot from the first menu.list  item
+change to any number of items on demand.

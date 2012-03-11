@@ -4,6 +4,7 @@ dow_test# copy dbprof.cpuid_2_id to '/data/sophist/test.sql';
 
 How to Install and Configure Postgresql in Linux:
 
+./configure --prefix=/usr/local/postgres
 Ubuntu : 
 
 sudo apt-get  install postgresql-8.4 postgresql-client-8.4 postgresql-contrib-8.4

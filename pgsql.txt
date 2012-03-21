@@ -1,4 +1,4 @@
-pg_dump dow_tet -t dbprof.cluster > test.sql -U gpadmin
+pg_dump dow_dev -t dbprof.cluster > test.sql -U gpadmin
 
 dow_test# copy dbprof.cpuid_2_id to '/data/sophist/test.sql';
 

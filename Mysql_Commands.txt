@@ -5,4 +5,8 @@ use db;
 source db.sql 
 
 
-Mysql in linux dump table
+Mysql in linux dump table : 
+
+
+Mysql restore database :
+mysql -u root -pyahoo_2008 dow1209 < /home/backup/elcid/dow_2012-03-06_12.sql

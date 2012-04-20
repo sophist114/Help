@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+
+# config section
+$minchars = 4;
+$svnlook = '/usr/bin/svnlook';
+
+#--------------------------------------------
+$repos = $ARGV[0];
+$txn = $ARGV[1];
+$comment = `$svnlook log -t "$txn" "$repos"`;
+chomp($comment);
+
+if ( length($comment) == 0 ) {
+  print STDERR "A comment is required!";
+  exit(1);
+  }
+elsif ( length($comment) < $minchars ) {
+  print STDERR "Comment must be at least $minchars characters.";
+  exit(1);
+  }
+
+exit(0);

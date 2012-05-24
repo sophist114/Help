@@ -43,6 +43,7 @@ for file in l:
 	temp = open(path+file,'r').read()
 	temp = re.sub(r'(\w)\1{3,}', r'\1', temp)	
 	temp = re.sub('\n',' ',temp)
+	temp = re.sub('_',' ',temp)
 	temp = re.sub('(0x\w+)',' ',temp)
 	temp = re.sub('(\d+)',' ',temp)
 	temp = re.sub(r'[^\w]',' ',temp)	
@@ -62,23 +63,27 @@ for ji in jiras:
 	jira = re.sub('(<\w+(.*)</\w+>)', '',jira)
 
 	jira = re.sub("'","",jira)
+	jira = jira.lower()
 	bad = stopwords.words('english');
 
 	all = wordpunct_tokenize(jira);
 	all = [i.lower() for i in all]
 	all = [stem(i) for i in all]
-	
-#	print all
-#	time.sleep(3)
 	temp = all
 	good = []
-	
+
 	for v in temp:
 			if bad.__contains__(v):
 					print 'removed : '+v
 			else:
+				
+				if len(v)>3 :
 					good.append(v)
 	result=[]
+	print good
+	time.sleep(6)
+	backup = ' '.join(str(k) for k in good)
+	cur.execute('insert into qa_ana.prepared_data values (\'MPP-'+ji+'\',\''+backup+'\')')
 	for w in good:
 		if(w in dict):
 			result.append(dict.index(w))

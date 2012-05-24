@@ -43,6 +43,8 @@ for file in l:
 	temp = open(path+file,'r').read()
 	temp = re.sub(r'(\w)\1{3,}', r'\1', temp)	
 	temp = re.sub('\n',' ',temp)
+        temp = re.sub('({code}(.*){code})','',temp)
+        temp = re.sub('({noformat}(.*){noformat})','',temp)
 	temp = re.sub('_',' ',temp)
 	temp = re.sub('(0x\w+)',' ',temp)
 	temp = re.sub('(\d+)',' ',temp)
@@ -52,7 +54,7 @@ for file in l:
 	jira_id = re.sub('MPP-','',file)
 	jiras[jira_id]=temp
 
-
+#code_tags = ['code','noformat'] 
 for ji in jiras:
 	jira = jiras[ji]
 	for i in config:
@@ -60,15 +62,18 @@ for ji in jiras:
 		#print config[i]
 
 	#replace block of code
-	jira = re.sub('(<\w+(.*)</\w+>)', '',jira)
-
+	#jira = re.sub('(<\w+(.*)</\w+>)', '',jira)
+	#for i in code_tags:
+	#	jira = re.sub('({'+i+'}(.*){'+i+'})','',jira)
+	#jira = re.sub('({code}(.*){code})','',jira)	
+	#jira = re.sub('({noformat}(.*){noformat})','',jira)	
 	jira = re.sub("'","",jira)
 	jira = jira.lower()
 	bad = stopwords.words('english');
 
 	all = wordpunct_tokenize(jira);
 	all = [i.lower() for i in all]
-	all = [stem(i) for i in all]
+	#all = [stem(i) for i in all]
 	temp = all
 	good = []
 
@@ -81,7 +86,8 @@ for ji in jiras:
 					good.append(v)
 	result=[]
 	print good
-	time.sleep(6)
+	
+	time.sleep(5)
 	backup = ' '.join(str(k) for k in good)
 	cur.execute('insert into qa_ana.prepared_data values (\'MPP-'+ji+'\',\''+backup+'\')')
 	for w in good:
@@ -101,4 +107,5 @@ print dict
 cur.execute('truncate table qa_ana.dictionary')
 cur.execute('insert into qa_ana.dictionary values(array'+str(dict)+')')
 db.commit()
+
 

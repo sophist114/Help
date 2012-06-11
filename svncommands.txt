@@ -6,7 +6,7 @@ note: this is where the source code located: /usr/local/apache/htdocs/sm3_new/
 [root@yahoo151 project]# ll
 total 4
 drwxr-xr-x 7 root root 4096 Feb  6 17:22 sm3
-[root@yahoo151 project]# svn import /usr/local/apache/htdocs/sm3_new/ file:///sophist/project/sm3/ -m 'new sm3'
+[root@yahoo151 project]# svn import /usr/local/apache/htdocs/sm3_new/ file:///sophist/project/sm3/project_name -m 'new sm3'
 
 a couple of things to be chnaged at conf/
 conf/svnserve.conf: 
@@ -30,4 +30,4 @@ Done now!
 
 svn check out with username and password : 
 
-svn co svn://172.18.65.197/sophist/project/qa/ --username sophist --password sophist
+svn co svn://172.18.65.197/project_name --username sophist --password sophist
